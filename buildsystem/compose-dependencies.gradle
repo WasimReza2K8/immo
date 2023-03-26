@@ -1,0 +1,18 @@
+android {
+    def config = rootProject.ext
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = config.compose_version
+    }
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    def composeBom = platform(libs.androidx.compose.bom)
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation(libs.bundles.compose)
+    implementation(libs.androidx.lifecycle.compose)
+}

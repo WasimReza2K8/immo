@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error">There is either a problem with internet or server is unavailable</string>
+    <string name="unknown_error">We cannot show result for some unknown error</string>
+    <string name="no_image_found">No Image Found</string>
+    <string name="property_item">Property Item</string>
+    <string name="photo_text_view">photo text view</string>
+    <string name="big_photo_content">Big photo</string>
+</resources>

@@ -1,0 +1,12 @@
+ext {
+    compose_version = "1.3.2"
+    android = [
+            minSdkVersion    : 23,
+            targetSdkVersion : 30,
+            compileSdkVersion: 33,
+            applicationId    : "com.aviv.wasim",
+            buildVersionName : "1.0",
+            buildNumber      : 1
+    ]
+
+}

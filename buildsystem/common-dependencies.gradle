@@ -1,0 +1,72 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+
+android {
+    def androidConfig = rootProject.ext.android
+
+    compileSdkVersion androidConfig.compileSdkVersion
+    defaultConfig {
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        freeCompilerArgs += '-opt-in=kotlin.RequiresOptIn'
+        freeCompilerArgs += '-opt-in=com.google.accompanist.pager.ExperimentalPagerApi'
+        freeCompilerArgs += '-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi'
+        freeCompilerArgs += '-opt-in=kotlinx.coroutines.FlowPreview'
+        freeCompilerArgs += '-opt-in=kotlinx.serialization.ExperimentalSerializationApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.material.ExperimentalMaterialApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.ui.ExperimentalComposeUiApi'
+        freeCompilerArgs += '-opt-in=androidx.lifecycle.compose.ExperimentalLifecycleComposeApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.animation.ExperimentalAnimationApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.foundation.ExperimentalFoundationApi'
+        jvmTarget = '11'
+    }
+
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+}
+
+dependencies {
+    implementation libs.org.jetbrains.kotlin.stdlib.jdk8
+    //Hilt
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    //detekt
+    detektPlugins libs.io.gitlab.arturbosch.detekt.formatting
+
+    // test
+    testImplementation libs.io.mockk
+    testImplementation libs.io.mockk.android
+    testImplementation libs.junit
+    testImplementation libs.turbine
+    testImplementation libs.org.jetbrains.kotlinx.coroutines.test
+    testImplementation libs.org.assertj.core
+    //debug
+    implementation libs.com.jakewharton.timber
+    debugImplementation libs.com.squareup.leakcanary.android
+}

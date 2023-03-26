@@ -1,0 +1,20 @@
+plugins {
+    id 'com.android.library'
+}
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
+apply from: "$rootDir/buildsystem/compose-dependencies.gradle"
+android {
+
+    packagingOptions {
+        resources {
+            pickFirsts += ['META-INF/LICENSE.md', 'META-INF/licenses/ASM', 'META-INF/INDEX.LIST', 'META-INF/LICENSE-notice.md']
+        }
+    }
+    namespace 'com.example.core.ui'
+}
+
+dependencies {
+    implementation project(':core')
+    implementation libs.io.coil.kt
+    implementation libs.com.google.accompanist.systemuicontroller
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="realestate_title">Property</string>
+    <string name="realestate_detail">Property Detail</string>
+    <string name="realestate_property_list">PropertyList</string>
+    <string name="realestate_property_detail">PropertyDetail</string>
+    <string name="realestate_no_property_found">No Property Found</string>
+    <string name="realestate_unknown">Unknown</string>
+    <string name="realestate_property_area">Area:</string>
+    <string name="realestate_property_price">Price:</string>
+    <string name="realestate_property_bedrooms">Bedrooms:</string>
+    <string name="realestate_property_city">City:</string>
+    <string name="realestate_property_offer_type">Offer Type:</string>
+    <string name="realestate_property_professional">Professional:</string>
+    <string name="realestate_property_propertyType">Property Type:</string>
+    <string name="realestate_property_rooms">Rooms:</string>
+</resources>

@@ -1,0 +1,136 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+tasks.register("generateFeatureModule") {
+    doLast {
+        copy {
+            includeEmptyDirs = false
+            checkModuleNameProperty(name)
+
+            moduleName.metaClass.toSnakeCase = { replaceAll(/([A-Z])/, /_$1/).toLowerCase().replaceAll(/^_/, '') }
+
+            def tokens = generatePlaceholderTokens()
+            def templateDirPath = rootProject.file("features/.module-template/feature")
+            def featureDir = rootProject.file("features/feature-${tokens.placeholderlowercase}")
+
+            from templateDirPath
+            into featureDir
+
+            // Directory and file name replacement
+            tokens.each { placeholderKey, placeholderValue ->
+                filesMatching("**/$placeholderKey/**/*") {
+                    it.path = it.path.replace(placeholderKey, placeholderValue)
+                }
+                rename(placeholderKey, placeholderValue)
+            }
+
+            // File extension replacement
+            rename('.ktemplate', '.kt')
+            rename('.xmltemplate', '.xml')
+
+            // Content replacement
+            filter(ReplaceTokens, tokens: tokens)
+
+            def settingsDirPath = rootProject.file("settings.gradle")
+            settingsDirPath.append('\ninclude ' + "'features:$featureDir.name'")
+
+            generateAbstractModule(tokens, featureDir)
+
+            printAddModuleHelp(tokens, featureDir)
+        }
+    }
+}
+
+private void generateAbstractModule(LinkedHashMap<String, Object> tokens, featureDir) {
+    copy {
+        includeEmptyDirs = false
+        checkModuleNameProperty(name)
+
+        moduleName.metaClass.toSnakeCase = { replaceAll(/([A-Z])/, /_$1/).toLowerCase().replaceAll(/^_/, '') }
+
+        def templateDirPath = rootProject.file("features/.module-template/shared")
+        def abstractDirPath = rootProject.file("features/feature-${tokens.placeholderlowercase}-shared")
+
+        from templateDirPath
+        into abstractDirPath
+
+        // Directory and file name replacement
+        tokens.each { placeholderKey, placeholderValue ->
+            filesMatching("**/$placeholderKey/**/*") {
+                it.path = it.path.replace(placeholderKey, placeholderValue)
+            }
+            rename(placeholderKey, placeholderValue)
+        }
+
+        // File extension replacement
+        rename('.ktemplate', '.kt')
+
+        // Content replacement
+        filter(ReplaceTokens, tokens: tokens)
+
+        def settingsDirPath = rootProject.file("settings.gradle")
+        settingsDirPath.append('\ninclude ' + "'features:$abstractDirPath.name'")
+
+        def appGradleDirPath = rootProject.file("app/build.gradle")
+
+        appendLineAfterSpecificText(
+                appGradleDirPath,
+                "dependencies {",
+                "    implementation project(':features:$abstractDirPath.name')" +
+                        "\n    implementation project(':features:$featureDir.name')"
+        )
+        printAddModuleHelp(tokens, abstractDirPath)
+    }
+}
+
+private void appendLineAfterSpecificText(File file, String specificText, String appendLine) {
+    def newFile = File.createTempFile("build", UUID.randomUUID().toString())
+
+    newFile.withWriter { output ->
+        file.eachLine { line ->
+            if (line.contains(specificText)) {
+                output.write(line)
+                output.write("\n")
+                output.write(appendLine)
+                output.write("\n")
+            } else {
+                output.write(line)
+                output.write("\n")
+            }
+        }
+    }
+
+    file.delete()
+    newFile.renameTo("app/build.gradle")
+}
+
+private void printAddModuleHelp(LinkedHashMap<String, Object> tokens, moduleDirPath) {
+    def tokensUsed = tokens.collect { k, v -> "            ${k}: ${v}" }.join("\n")
+    println("""
+
+    Module created:
+        Name: ${tokens.PlaceholderName}
+        Package: com.example.${tokens.placeholderlowercase}
+        Directory: ${moduleDirPath}
+
+    Placeholders used:\n${tokensUsed}
+
+    Synchronize the project for the new module to be available.
+    """)
+}
+
+private LinkedHashMap<String, Object> generatePlaceholderTokens() {
+    def tokens = [
+            PlaceholderName        : moduleName.capitalize(),
+            placeholderUncaptalized: moduleName.uncapitalize(),
+            PLACEHOLDER_UPPERCASE  : moduleName.toSnakeCase().toUpperCase(),
+            placeholderlowercase   : moduleName.toLowerCase(),
+            placeholder_snake_case : moduleName.toSnakeCase()
+    ]
+    tokens
+}
+
+private boolean checkModuleNameProperty(taskName) {
+    if (!rootProject.hasProperty('moduleName')) {
+        throw InvalidUserDataException("moduleName] [Please provide the module name: ./gradlew $taskName -PmoduleName=ModuleName")
+    }
+}

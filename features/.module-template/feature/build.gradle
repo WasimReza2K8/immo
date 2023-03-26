@@ -1,0 +1,22 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlinx-serialization'
+}
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
+apply from: "$rootDir/buildsystem/compose-dependencies.gradle"
+
+android {
+    resourcePrefix '@placeholder_snake_case@_'
+    defaultConfig {
+        consumerProguardFiles "$projectDir/proguard-@placeholderlowercase@-consumer-rules.pro"
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':core-navigation')
+    implementation project(':features:feature-@placeholderlowercase@-shared')
+
+    implementation libs.kotlinx.serialization
+    implementation libs.bundles.coroutines
+}

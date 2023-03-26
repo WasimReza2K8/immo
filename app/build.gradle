@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: "$rootDir/buildsystem/generate-module.gradle"
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
+apply from: "$rootDir/buildsystem/compose-dependencies.gradle"
+
+android {
+
+    packagingOptions {
+        resources {
+            pickFirsts += ['META-INF/LICENSE.md', 'META-INF/licenses/ASM', 'META-INF/INDEX.LIST', 'META-INF/LICENSE-notice.md']
+        }
+    }
+    namespace 'com.example.wasim'
+    defaultConfig {
+        testInstrumentationRunner "com.example.wasim.CustomTestRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+}
+
+dependencies {
+    implementation project(':features:feature-realestate-shared')
+    implementation project(':features:feature-realestate')
+    implementation project(':core-ui')
+    implementation project(':core-navigation')
+
+    implementation libs.androidx.appcompat
+    implementation libs.com.google.accompanist.navigation.animation
+
+    // androidTest
+    debugImplementation libs.androidx.compose.ui.test.manifest
+    androidTestImplementation libs.androidx.compose.ui.test.junit4
+
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.espresso.contrib
+    androidTestImplementation libs.androidx.test.espresso.intents
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation  libs.androidx.test.ext.junit.ktx
+    androidTestImplementation libs.hilt.android.testing
+    kaptAndroidTest libs.hilt.compiler
+    androidTestImplementation libs.org.jetbrains.kotlinx.coroutines.test
+}
