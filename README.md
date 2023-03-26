@@ -59,5 +59,5 @@ The following tools and technologies are used to implement the solution:
 </p>
 
 Note:
-- The unit for price and area are not present in the API response. The implementation is done by
+- The unit for price and area are not present in the API response. The implementation has been done by
 assuming the unit for price is euro and area is square meter. 
