@@ -5,7 +5,6 @@ import com.example.core.BuildConfig.BASE_URL
 import com.example.core.dispatcher.BaseDispatcherProvider
 import com.example.core.dispatcher.MainDispatcherProvider
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.squareup.leakcanary.core.BuildConfig
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
