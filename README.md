@@ -23,7 +23,7 @@ state and after the configuration changes(screen rotation, theme change, languag
 can provide the last state. The error events are also part of the view state as they are view model 
 events. Moreover, Stateflow is also used for navigation. The reason for using state flow for 
 viewModel events e.g., error event or navigation event is to make them more reliable. For more 
-information please check[this link](https://medium.com/androiddevelopers/viewmodel-one-off-event-antipatterns-16a1da869b95). 
+information please check [this link](https://medium.com/androiddevelopers/viewmodel-one-off-event-antipatterns-16a1da869b95). 
 
 Inside every feature module, the packages representing clean code architecture layers (presentation,
 domain, data). The presentation layer is responsible for drawing UI, UI related logic and holding UI
