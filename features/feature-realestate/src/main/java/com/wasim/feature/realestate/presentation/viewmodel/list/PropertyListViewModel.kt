@@ -46,7 +46,6 @@ internal class PropertyListViewModel @Inject constructor(
     private val detailLauncher: PropertyDetailLauncher,
     private val navigator: Navigator,
 ) : BaseViewModel<UiEvent, State>() {
-
     override fun provideInitialState() = State()
 
     override fun handleEvent(uiEvent: UiEvent) {
