@@ -55,7 +55,6 @@ The following tools and technologies are used to implement the solution:
 <img src="images/realestate-3.png" width="300">
 <img src="images/realestate-4.png" width="300">
 <img src="images/realestate-5.png" width="300">
-<img src="images/realestate-6.png" width="300">
 </p>
 
 Note:
