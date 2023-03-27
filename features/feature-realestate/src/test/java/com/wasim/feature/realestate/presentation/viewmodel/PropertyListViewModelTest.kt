@@ -109,7 +109,7 @@ class PropertyListViewModelTest : BaseViewModelTest() {
         }
 
     @Test
-    fun `Given valid output with empty restaurants, When OnStart called, Then state contains info text with no restaurants`() =
+    fun `Given valid output with empty properties, When OnStart called, Then state contains info text with no properties`() =
         runTest {
             coEvery {
                 getAllPropertiesUseCase()

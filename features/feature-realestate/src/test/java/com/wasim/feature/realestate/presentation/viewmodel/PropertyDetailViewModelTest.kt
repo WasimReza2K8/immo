@@ -25,7 +25,6 @@ import com.example.core.state.Output.Success
 import com.example.core.ui.R.string
 import com.example.core.viewmodel.ErrorEvent
 import com.example.core.viewmodel.ErrorEvent.UnknownError
-import com.wasim.feature.realestate.R
 import com.wasim.feature.realestate.domain.usecase.GetPropertyUseCase
 import com.wasim.feature.realestate.presentation.launcher.PropertyDetailLauncher
 import com.wasim.feature.realestate.presentation.viewmodel.detail.PropertyDetailContract.UiEvent.OnBackButtonClicked
@@ -51,7 +50,6 @@ class PropertyDetailViewModelTest : BaseViewModelTest() {
     companion object {
         private const val NETWORK_ERROR = "network error"
         private const val UNKNOWN_ERROR = "unknown error"
-        private const val NO_RESTAURANT = "no restaurant"
     }
 
     private val resourceProvider: ResourceProvider = mockk {
@@ -61,9 +59,6 @@ class PropertyDetailViewModelTest : BaseViewModelTest() {
         every {
             getString(string.unknown_error)
         } returns UNKNOWN_ERROR
-        every {
-            getString(R.string.realestate_no_property_found)
-        } returns NO_RESTAURANT
     }
     private lateinit var viewModel: PropertyDetailViewModel
 

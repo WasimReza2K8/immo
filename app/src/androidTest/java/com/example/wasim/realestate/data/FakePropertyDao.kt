@@ -1,4 +1,4 @@
-package com.example.wasim.restaurant.data
+package com.example.wasim.realestate.data
 
 import com.example.wasim.utils.ReturnType
 import com.example.wasim.utils.ReturnType.UnknownException

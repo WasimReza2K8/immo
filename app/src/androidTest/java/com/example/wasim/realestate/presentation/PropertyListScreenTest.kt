@@ -1,4 +1,4 @@
-package com.example.wasim.restaurant.presentation
+package com.example.wasim.realestate.presentation
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
@@ -10,8 +10,8 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.core.ui.R.string
 import com.example.wasim.MainActivity
-import com.example.wasim.restaurant.data.FakePropertyDao
-import com.example.wasim.restaurant.data.FakePropertyApi
+import com.example.wasim.realestate.data.FakePropertyDao
+import com.example.wasim.realestate.data.FakePropertyApi
 import com.example.wasim.utils.ReturnType.NetworkException
 import com.example.wasim.utils.ReturnType.UnknownException
 import com.example.wasim.utils.ReturnType.ValidEmptyList
